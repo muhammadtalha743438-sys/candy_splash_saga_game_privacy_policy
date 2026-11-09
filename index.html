@@ -1,0 +1,166 @@
+import React from 'react';
+import { soundManager } from '../audio/soundManager';
+import { ADMOB_CONFIG } from '../services/admobService';
+
+interface PrivacyPolicyModalProps {
+  onClose: () => void;
+}
+
+export const PrivacyPolicyModal: React.FC<PrivacyPolicyModalProps> = ({ onClose }) => {
+  const handleOpenWeb = () => {
+    soundManager.playButtonClick();
+    window.open('/privacy-policy.html', '_blank');
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/85 backdrop-blur-md select-none animate-fade-in">
+      <div className="relative w-full max-w-md rounded-3xl bg-slate-900 border-2 border-purple-500/40 p-4 sm:p-5 flex flex-col shadow-2xl max-h-[92vh] overflow-hidden">
+        {/* Header */}
+        <div className="flex items-center justify-between pb-3 border-b border-purple-500/20 shrink-0">
+          <div className="flex items-center gap-2.5">
+            <div className="w-10 h-10 rounded-xl overflow-hidden border border-amber-300/60 shadow shrink-0">
+              <img
+                src="/assets/aistudio/Candy_Splash_Saga_Icon_02c1827a.png"
+                alt="Candy Splash Saga Icon"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div>
+              <h2 className="text-lg font-black text-white font-['Fredoka'] leading-tight">
+                Privacy Policy
+              </h2>
+              <div className="text-[11px] text-purple-300 font-mono">
+                Candy Splash Saga · com.candysplash.saga.game (v1.0.5)
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-1.5">
+            <button
+              onClick={handleOpenWeb}
+              className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-[11px] font-semibold border border-slate-700 active:scale-95 transition-all flex items-center gap-1"
+              title="Open full web page"
+            >
+              <span>🌐</span>
+              <span className="hidden sm:inline">Web Link</span>
+            </button>
+            <button
+              onClick={onClose}
+              className="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center font-bold text-sm cursor-pointer"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+
+        {/* Scrollable Content */}
+        <div className="py-3 overflow-y-auto flex flex-col gap-3.5 flex-1 pr-1 text-xs text-slate-300 leading-relaxed font-sans">
+          {/* Policy Overview Badge */}
+          <div className="p-3 rounded-2xl bg-purple-950/40 border border-purple-500/20 flex flex-col gap-1">
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-amber-300">
+                Google Play Policy Compliance
+              </span>
+              <span className="text-[10px] text-purple-300 font-mono">
+                Updated: Nov 2026
+              </span>
+            </div>
+            <p className="text-[11px] text-slate-300 mt-0.5">
+              We respect your privacy. Candy Splash Saga is built to operate offline without requiring account sign-up, passwords, or personal details.
+            </p>
+          </div>
+
+          {/* 1. Data Stored Locally */}
+          <div className="flex flex-col gap-1">
+            <h3 className="text-sm font-bold text-amber-300 flex items-center gap-1.5">
+              <span>💾</span> 1. Local Game Data
+            </h3>
+            <p className="text-slate-300">
+              Your level progress (Levels 1 to 100+), earned stars, high scores, coin economy, and booster inventory are stored <strong>strictly locally on your device</strong>. We do not transmit or sell your saved games to any third-party servers.
+            </p>
+          </div>
+
+          {/* 2. Google AdMob Advertising */}
+          <div className="flex flex-col gap-1 p-3 rounded-2xl bg-slate-950/70 border border-purple-500/20">
+            <h3 className="text-sm font-bold text-white flex items-center gap-1.5">
+              <span>📢</span> 2. Google AdMob Integration
+            </h3>
+            <p className="text-slate-300 text-[11px]">
+              To support free gameplay without paywalls, Candy Splash Saga serves interstitial ads via <strong>Google AdMob</strong> (Google LLC).
+            </p>
+            <div className="bg-slate-900 rounded-xl p-2.5 font-mono text-[10px] text-slate-400 flex flex-col gap-0.5 border border-slate-800 mt-1">
+              <div><span className="text-slate-500">App ID:</span> {ADMOB_CONFIG.appId}</div>
+              <div><span className="text-slate-500">Ad Unit:</span> {ADMOB_CONFIG.interstitialAdUnitId}</div>
+              <div><span className="text-slate-500">Placements:</span> Before Game Start & Level Complete</div>
+            </div>
+            <p className="text-[11px] text-slate-400 mt-1">
+              Google AdMob may collect standard device identifiers (e.g. Google Advertising ID / AAID) to deliver ads and prevent invalid traffic. You can manage your ad preferences via{' '}
+              <a
+                href="https://adssettings.google.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-cyan-400 underline"
+              >
+                Google Ad Settings
+              </a>.
+            </p>
+          </div>
+
+          {/* 3. Children's Privacy (COPPA) */}
+          <div className="flex flex-col gap-1">
+            <h3 className="text-sm font-bold text-amber-300 flex items-center gap-1.5">
+              <span>🧸</span> 3. Children&apos;s Privacy (COPPA)
+            </h3>
+            <p className="text-slate-300">
+              Candy Splash Saga is family-friendly for players of all ages. We comply with COPPA and Google Play Families Policy. We do not knowingly collect personal information from children under 13.
+            </p>
+          </div>
+
+          {/* 4. User Rights & Data Deletion */}
+          <div className="flex flex-col gap-1">
+            <h3 className="text-sm font-bold text-amber-300 flex items-center gap-1.5">
+              <span>🗑️</span> 4. User Rights & Resetting Data
+            </h3>
+            <p className="text-slate-300">
+              You maintain complete control over your data. You can erase all locally stored data at any time via <em>Settings &gt; Reset All Saved Progress</em>, or through your Android device settings (<em>Settings &gt; Apps &gt; Candy Splash Saga &gt; Clear Storage</em>).
+            </p>
+          </div>
+
+          {/* 5. Developer Contact */}
+          <div className="flex flex-col gap-1 p-3 rounded-2xl bg-slate-950/70 border border-slate-800">
+            <h3 className="text-sm font-bold text-white flex items-center gap-1.5">
+              <span>✉️</span> 5. Contact & Support
+            </h3>
+            <p className="text-slate-300 text-[11px]">
+              For any questions or privacy inquiries, please contact:
+            </p>
+            <div className="text-[11px] text-purple-300 font-mono mt-0.5">
+              Developer: Muhammad Talha<br />
+              Email:{' '}
+              <a href="mailto:muhammadtalha743438@gmail.com" className="text-cyan-400 underline">
+                muhammadtalha743438@gmail.com
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer Actions */}
+        <div className="pt-3 border-t border-purple-500/20 shrink-0 flex items-center gap-2">
+          <button
+            onClick={handleOpenWeb}
+            className="flex-1 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-700 active:scale-95 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+          >
+            <span>📄</span>
+            <span>Open HTML Page</span>
+          </button>
+          <button
+            onClick={onClose}
+            className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-400 hover:to-rose-500 text-white text-xs font-black uppercase tracking-wider active:scale-95 transition-all shadow-md cursor-pointer font-['Fredoka']"
+          >
+            Got It
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
